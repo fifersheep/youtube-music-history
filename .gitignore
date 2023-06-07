@@ -1,0 +1,17 @@
+# based on https://github.com/github/gitignore/blob/main/Python.gitignore
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# IDE
+.vscode/
+
+# Project
+/data/raw/watch-history.json

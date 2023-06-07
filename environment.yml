@@ -1,0 +1,19 @@
+name: youtube_music_env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+  - numpy
+  - pandas=1.5.3
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyter
+  - ipython
+  - pyarrow
+  - pip
+  - pip:
+      - black
+      - pylint
+      - pytest

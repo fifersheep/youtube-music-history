@@ -27,9 +27,7 @@ def extract_listen_history(data):
     # use the time column to create a date, day, month, and year column
     listen_history["time"] = pd.to_datetime(listen_history["time"])
     listen_history["date"] = pd.to_datetime(listen_history["time"].dt.date)
-    listen_history["day"] = listen_history["time"].dt.day
-    listen_history["month"] = listen_history["time"].dt.month
-    listen_history["year"] = listen_history["time"].dt.year
+    listen_history["month"] = listen_history["date"].to_numpy().astype('datetime64[M]')
     listen_history.dtypes
 
     # some artists are reported with varying names, combine them manually

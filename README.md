@@ -2,7 +2,7 @@
 
 ## Data Processing
 
-1. Data downloaded using [Google Takeout](https://takeout.google.com/settings/takeout) on 24 Apr 2023, filtering for "YouTube and YouTube Music"
+1. Data downloaded using [Google Takeout](https://takeout.google.com/settings/takeout) on 4 Aug 2023, filtering for "YouTube and YouTube Music"
 1. Stored as `watch-history.json` under `/data/raw` (excluded from source control)
 1. Extracted the music history with `python3 ./src/data/make_dataset.py`
    1. Loads the data into a dataframe

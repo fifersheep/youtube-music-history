@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import seaborn as sns
 
+from src.visualization.colors import dark_grey
+
 def change_matplotlib_font():
     FONT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "assets"))
 

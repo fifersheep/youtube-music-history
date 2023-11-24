@@ -12,6 +12,7 @@ ipython_config.py
 
 # IDE
 .vscode/
+.idea/
 
 # Project
 /data/raw/

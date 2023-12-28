@@ -11,7 +11,10 @@ def load_dataset():
 
 def extract_listen_history(data):
     # query rows which have the "YouTube Music" header and are within the given timeframe
-    listen_history_df = data.query('header == "YouTube Music"')[
+    title_matcher = ('title.str.contains("losing me", case=False) '
+                     '& ~title.str.contains("Therapist", case=False)'
+                     '& ~title.str.contains("fanmade", case=False)')
+    listen_history_df = data.query(f'(header == "YouTube Music") | (header == "YouTube" & {title_matcher})')[
         ["title", "subtitles", "time"]
     ].copy()
 
@@ -35,6 +38,11 @@ def extract_listen_history(data):
     listen_history_df["artist"] = listen_history_df["artist"].replace(
         "Caramell", "Caramella Girls"
     )
+
+    # combine Taylor Swift "You're Losing Me" tracks
+    youre_losing_me_listens = listen_history_df.query(title_matcher)
+    listen_history_df.loc[youre_losing_me_listens.index, 'title'] = "You’re Losing Me (From The Vault)"
+
     return listen_history_df
 
 

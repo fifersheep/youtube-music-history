@@ -11,12 +11,13 @@ def load_dataset():
 
 def extract_listen_history(data):
     # query rows which have the "YouTube Music" header and are within the given timeframe
-    title_matcher = ('title.str.contains("losing me", case=False) '
-                     '& ~title.str.contains("Therapist", case=False)'
-                     '& ~title.str.contains("fanmade", case=False)')
-    listen_history_df = data.query(f'(header == "YouTube Music") | (header == "YouTube" & {title_matcher})')[
-        ["title", "subtitles", "time"]
-    ].copy()
+    youre_losing_me_title_matcher = ('title.str.contains("losing me", case=False) '
+                                     '& ~title.str.contains("Therapist", case=False)'
+                                     '& ~title.str.contains("fanmade", case=False)')
+    listen_history_df = \
+        data.query(f'(header == "YouTube Music") | (header == "YouTube" & {youre_losing_me_title_matcher})')[
+            ["title", "subtitles", "time"]
+        ].copy()
 
     # remove rows which have no subtitles value, as this is where the artist is stored
     listen_history_df = listen_history_df.dropna(subset=["subtitles"])
@@ -36,11 +37,15 @@ def extract_listen_history(data):
 
     # some artists are reported with varying names, combine them manually
     listen_history_df["artist"] = listen_history_df["artist"].replace(
-        "Caramell", "Caramella Girls"
+        {
+            "Caramell": "Caramella Girls",
+            "TaylorSwiftVEVO": "Taylor Swift",
+            "Teller 13 Taylor": "Taylor Swift",
+        }
     )
 
     # combine Taylor Swift "You're Losing Me" tracks
-    youre_losing_me_listens = listen_history_df.query(title_matcher)
+    youre_losing_me_listens = listen_history_df.query(youre_losing_me_title_matcher)
     listen_history_df.loc[youre_losing_me_listens.index, 'title'] = "You’re Losing Me (From The Vault)"
 
     return listen_history_df

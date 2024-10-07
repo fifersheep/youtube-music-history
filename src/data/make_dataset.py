@@ -4,7 +4,7 @@ import json
 
 
 def load_dataset():
-    with open("../../data/raw/watch-history.json") as json_file:
+    with open("../../data/raw/watch-history.json", encoding='UTF-8') as json_file:
         data = json.load(json_file)
         return pd.json_normalize(data)
 
